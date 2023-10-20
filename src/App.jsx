@@ -1,12 +1,12 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import Homepage from "./pages/Homepage";
+import Home from "./pages/Home";
 
 function App() {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Homepage />
+      <Home />
     </QueryClientProvider>
   );
 }

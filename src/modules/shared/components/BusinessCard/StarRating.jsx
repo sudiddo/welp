@@ -6,7 +6,7 @@ function StarRating({ rating }) {
     <div className="flex items-center space-x-px flex-row">
       {[0, 1, 2, 3, 4].map((star) => (
         <StarIcon
-          key={rating}
+          key={Math.random()}
           className={classNames(
             rating > star ? "text-yellow-400" : "text-gray-200",
             "h-5 w-5 flex-shrink-0"

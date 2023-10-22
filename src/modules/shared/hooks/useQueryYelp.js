@@ -34,7 +34,11 @@ const getHomepageBusinesses = async ({ limit, offset }) => {
 };
 
 export const useHomepageBusinesses = ({ limit, offset }) => {
-  return useQuery(["homepageBusinesses", { limit, offset }], () =>
-    getHomepageBusinesses({ limit, offset })
+  return useQuery(
+    ["homepageBusinesses", { limit, offset }],
+    () => getHomepageBusinesses({ limit, offset }),
+    {
+      keepPreviousData: true,
+    }
   );
 };

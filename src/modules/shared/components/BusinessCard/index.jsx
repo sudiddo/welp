@@ -1,10 +1,8 @@
-// Add PropsType for businesscard
-
 import { PhoneIcon } from "@heroicons/react/20/solid";
 import StarRating from "./StarRating";
 import CategoryBadge from "./CategoryBadge";
 
-function BusinessCard({ business }) {
+function BusinessCard({ business, numbering, onHover }) {
   const onCall = (phone) => {
     if (window !== undefined) {
       window.open(`tel:${phone}`);
@@ -12,15 +10,21 @@ function BusinessCard({ business }) {
   };
 
   return (
-    <div className="flex flex-col w-fit max-w-[350px] space-y-3 border rounded-xl shadow-sm">
+    <div
+      onMouseOver={() => onHover(business)}
+      onMouseOut={() => onHover(null)}
+      className="flex flex-col w-full  space-y-3 border rounded-xl shadow-sm"
+    >
       <img
         alt={business.name}
         src={business.image_url}
-        className="w-full h-[250px] md:w-[350px] rounded-t-xl object-cover"
+        className="w-full h-[250px]  rounded-t-xl object-cover"
       />
       <div className="flex flex-row px-3 space-x-3">
         <div className="space-y-2 pb-3 flex-1">
-          <p className="font-bold">{business.name}</p>
+          <p className="font-bold">
+            {numbering}. {business.name}
+          </p>
           <StarRating rating={business.rating} />
           <div className="flex flex-row flex-wrap gap-2">
             {business.categories.map((category) => (

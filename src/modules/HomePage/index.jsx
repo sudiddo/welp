@@ -1,56 +1,70 @@
 import { useEffect, useState } from "react";
 import { useHomepageBusinesses } from "../shared/hooks/useQueryYelp";
 import LoadingIndicator from "../shared/components/LoadingIndicator";
-import BusinessCard from "../shared/components/BusinessCard";
+import Maps from "../shared/components/Maps";
+import Pagination from "./components/Pagination";
+import BusinessList from "./components/BusinessList";
+import Header from "../shared/components/Header";
 
 function HomePage() {
   const limit = 10;
   const [offset, setOffset] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [hoveredBusiness, setHoveredBusiness] = useState(null);
 
   const { data, isLoading } = useHomepageBusinesses({ limit, offset });
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && data) {
       setTotalPages(Math.ceil(data.total / limit));
     }
   }, [data, limit, isLoading]);
 
-  const handleNext = () => {
-    setOffset((offset) => offset + limit);
-  };
+  const handleNext = () => setOffset((prevOffset) => prevOffset + limit);
+  const handlePrevious = () =>
+    setOffset((prevOffset) => Math.max(0, prevOffset - limit));
 
-  const handlePrevious = () => {
-    setOffset((offset) => Math.max(0, offset - limit));
-  };
+  if (isLoading) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <LoadingIndicator />
+      </div>
+    );
+  }
 
   return (
-    <div className="relative h-screen">
-      {totalPages !== 0 && (
-        <div className="flex justify-between fixed top-0 w-full bg-white px-5 py-2 shadow">
-          <button onClick={handlePrevious} disabled={offset === 0}>
-            Previous
-          </button>
-          <span>
-            Page {offset / limit + 1} of {totalPages}
-          </span>
-          <button onClick={handleNext} disabled={offset + limit >= data?.total}>
-            Next
-          </button>
+    <div className="relative">
+      <Header />
+      <Pagination
+        offset={offset}
+        totalPages={totalPages}
+        limit={limit}
+        onNext={handleNext}
+        onPrevious={handlePrevious}
+      />
+
+      <div className="w-screen relative flex md:flex-row">
+        <div className="flex h-full w-full">
+          <BusinessList
+            businesses={data.businesses}
+            offset={offset}
+            setHoveredBusiness={setHoveredBusiness}
+          />
         </div>
-      )}
-      <div className="flex flex-col h-full">
-        {isLoading ? (
-          <div className="h-full flex items-center justify-center">
-            <LoadingIndicator />
+        <div className="flex-col items-stretch w-full hidden md:flex shadow-inner">
+          <div className="sticky top-[56px] h-[calc(100vh-70px)] items-stretch">
+            <div className="absolute inset-0">
+              <Maps
+                businesses={data.businesses}
+                onHover={setHoveredBusiness}
+                region={data.region}
+                offset={offset}
+                hoveredBusiness={hoveredBusiness}
+              />
+            </div>
           </div>
-        ) : (
-          <div className="space-y-4 p-5 mt-10">
-            {data.businesses.map((business) => (
-              <BusinessCard key={business.id} business={business} />
-            ))}
-          </div>
-        )}
+        </div>
+        {/* </div> */}
       </div>
     </div>
   );

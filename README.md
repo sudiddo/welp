@@ -4,24 +4,23 @@ Welcome to Welp, a practical exploration into building a modern Vite-powered Rea
 
 ## Project Structure
 
-.
-├── **src**: _Main source directory for the application._
-│ ├── **api**: _Handles all API-related functions and endpoints._
-│ ├── **assets**: _Static assets like images, fonts, etc._
-│ ├── **modules**: _Feature-specific directories; each module represents a distinct feature or page._
-│ │ └── **HomePage**: _Main landing page of the application._
-│ │ └── **components**: _React components specific to HomePage._
-│ ├── **shared**: _Reusable components and utilities that can be used across different modules._
-│ │ └── **components**: _General components that aren't tied to a specific feature or module._
-│ │ ├── **BusinessCard**: _Component to display business information._
-│ │ ├── **Header**: _Application header._
-│ │ ├── **Maps**: _Map rendering and related utilities._
-│ │ └── **LoadingIndicator**: _Visual indicator for async operations._
-│ ├── **hooks**: _Custom React hooks for managing side-effects and state._
-│ └── **utils**: _Utility functions and helpers._
-└── **pages**: _Entry points for application routes._
-├── **App.jsx**: _Main application component._
-└── **index.css**: _Global styles._
+<pre>
+src 
+ ┣ api 
+ ┣ assets
+ ┣ modules
+ ┃ ┣ HomePage (example)
+ ┃ ┃ ┣ components
+ ┃ ┃ ┗ index.jsx
+ ┃ ┗ shared
+ ┃ ┃ ┣ components
+ ┃ ┃ ┣ hooks
+ ┃ ┃ ┗ utils
+ ┣ pages
+ ┣ App.jsx
+ ┣ index.css
+ ┗ main.jsx
+</pre>
 
 ## Features
 

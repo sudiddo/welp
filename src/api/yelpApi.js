@@ -8,10 +8,11 @@ import axios from "axios";
  *
  */
 
-const baseURL = `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/businesses`;
+// const baseURL = `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/businesses`;
+// const baseURL = `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/businesses`;
 
 const yelpApi = axios.create({
-  baseURL,
+  baseURL: import.meta.env.VITE_YELP_API_BASE_URL,
   headers: {
     Authorization: `Bearer ${import.meta.env.VITE_YELP_API_KEY}`,
     "Content-type": "application/json",
